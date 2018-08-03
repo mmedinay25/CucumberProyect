@@ -33,7 +33,7 @@ public class recargaPaypal_steps {
 	
 	@Dado("^que el usuario ingreso a la página de recarga$")
 	public void que_el_usuario_ingreso_a_la_página_de_recarga() throws Throwable {
-		loginPage.login();
+		loginPage.loginUsuarioAsociado();
 	    homePage.btnRecargaYa.click();
 	    Thread.sleep(1000);
 	    recargaPage.Access();

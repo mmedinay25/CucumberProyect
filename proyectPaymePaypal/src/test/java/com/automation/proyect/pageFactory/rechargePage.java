@@ -39,6 +39,9 @@ public class rechargePage {
 
 	@FindBy(id = "register-boton")
 	public WebElement btnGenerarCodigo;
+	
+	@FindBy(id = "div-alerta")
+	public WebElement lblMensajeValidacion;
 
 	@FindBy(xpath = "//*[@id='contentForm']/div[1]/div/div[2]/div/div/div/div[2]/div/div[1]/b")
 	public WebElement lblCodigoRecarga;

@@ -17,7 +17,15 @@ public class homePage {
 	@FindBy(id = "welcomeUser:paypalRecargaHome")
 	public WebElement btnRecargaYa;
 	
-
+	@FindBy(id = "welcomeUser:paypalRecargaHome")
+	public WebElement btnComienzaYa;
+	
+	@FindBy(xpath = "//a[@class='btn pme-btn']")
+	public WebElement btnAsociarAhora;
+	
+	@FindBy(id = "div-alerta")
+	public WebElement lblMensajeValidacion;
+	
 	public homePage(WebDriver driver) {
 		this.driver = driver;
 	}

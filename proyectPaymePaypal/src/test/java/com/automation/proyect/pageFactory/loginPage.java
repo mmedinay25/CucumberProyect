@@ -73,12 +73,21 @@ public class loginPage{
 
 	}
 	
-	public void login() throws InterruptedException {
+	public void loginUsuarioAsociado() throws InterruptedException {
 		driver.navigate().to(LOGIN_URL);
 		txtUsername.sendKeys("michael.medinay@gmail.com");
 		txtPassword.sendKeys("Michael1%");
 		btnIngresar.click();
 		
 		Thread.sleep(3500);
-	}	
+	}
+	
+	public void loginUsuarioPorAsociar(String correo) throws InterruptedException {
+		driver.navigate().to(LOGIN_URL);
+		txtUsername.sendKeys(correo);
+		txtPassword.sendKeys("Michael1%");
+		btnIngresar.click();
+		
+		Thread.sleep(3500);
+	}
 }
