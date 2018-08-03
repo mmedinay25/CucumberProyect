@@ -1,8 +1,10 @@
 package com.automation.proyect.Test;
 
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import java.util.concurrent.TimeUnit;
 
+import org.openqa.selenium.Point;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
@@ -15,13 +17,19 @@ public class Hooks {
 	    System.out.println("--------------------------------------------------------------------");
 	    System.out.println("Iniciando Escenario: " + scenario.getName());
 	    System.out.println("--------------------------------------------------------------------");
-	
-	    System.setProperty("webdriver.gecko.driver", "src/test/resources/drivers/geckodriver.exe");
-	   
-		driver = new FirefoxDriver();	
 	    
-	    driver.manage().deleteAllCookies();
+	    System.setProperty("webdriver.chrome.driver", "src/test/resources/drivers/chromedriver.exe");
+//	    System.setProperty("webdriver.gecko.driver", "src/test/resources/drivers/geckodriver.exe");
+	    
+		driver = new ChromeDriver();
+//		driver = new FirefoxDriver();	
+	    
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		driver.manage().window().setPosition(new Point(0, 0));
 		driver.manage().window().maximize();
+		
+//	    driver.manage().deleteAllCookies();
+//		driver.manage().window().maximize();
  	}
 	
 	@After

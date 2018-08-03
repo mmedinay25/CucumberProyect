@@ -1,5 +1,8 @@
 package com.automation.proyect.pageFactory;
 
+import java.util.Iterator;
+import java.util.Set;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -90,12 +93,16 @@ public class asociacionPage {
 	@FindBy(id = "returnLink")
 	public WebElement btnCerrarPaypal;
 	
+	@FindBy(id = "div-alerta")
+	public WebElement lblMensajeValidacion;
+	
 	
 	public asociacionPage(WebDriver driver) {
 		this.driver = driver;
 	}
 	
 	public void Access() {
+		
 		WebDriverWait wait = new WebDriverWait(driver, 20);
 		wait.until(ExpectedConditions.visibilityOf(btnAsociar));
 
@@ -112,25 +119,39 @@ public class asociacionPage {
 	}
 	
 	public void ingresarDatosPersonales(String nombres, String apellidos, String tipoDocu, String nroDocu, String nroCel, String operador, boolean next) throws InterruptedException {
+		txtNombres.clear();
 		txtNombres.sendKeys(nombres);
+		
+		txtApellidos.clear();
 		txtApellidos.sendKeys(apellidos);
+		
 		selectText(tipoDocu, cmbTipoDocumento);
+		
+		txtNroDocumento.clear();
 		txtNroDocumento.sendKeys(nroDocu);
+		
+		txtNroDocumento.clear();
+		txtNroDocumento.sendKeys(nroDocu);
+		
+		txtNroCelular.clear();
 		txtNroCelular.sendKeys(nroCel);
+		
 		selectText(operador, cmbOperador);
 		
 		if (next)
 			btnSiguiente1.click();
 		
-		Thread.sleep(1500);
+		Thread.sleep(2000);
 	}
 	
 	public void ingresarDatosDireccion(String pais, String depa, String ciudad, String distrito, String direc) throws InterruptedException {
 		selectText(pais, cmbPais);
 		selectText(depa, cmbDepartamento);
 		selectText(ciudad, cmbCiudad);
-		selectText(distrito, cmbDistrito);
-		selectText(direc, txtDireccion);
+		selectValue(distrito, cmbDistrito);
+		
+		txtDireccion.clear();
+		txtDireccion.sendKeys(direc);
 		
 		btnSiguiente2.click();
 		
@@ -139,17 +160,37 @@ public class asociacionPage {
 	
 	public void ingresarDatosTarjeta() throws InterruptedException {
 		btnFinalizar.click();
-		Thread.sleep(2000);
 	}
 	
-	public void ingresarDatosPaypal() {
+	public void ingresarDatosPaypal(String clave) throws InterruptedException {
 		
+		WebDriverWait wait = new WebDriverWait(driver, 60);
+		
+		Set<String> handles = driver.getWindowHandles();
+		Iterator<String> iterator = handles.iterator();
+		
+		String mainWindows = iterator.next();
+		String subWindowHandler = iterator.next();
+
+		driver.switchTo().window(subWindowHandler);
+		wait.until(ExpectedConditions.visibilityOf(txtClavePaypal));
+		
+		txtClavePaypal.sendKeys(clave);
+		btnAutorizar.click();
+		
+		driver.switchTo().window(mainWindows);
+		
+		wait.until(ExpectedConditions.visibilityOf(lblMensajeValidacion));
 	}
 	
 	public void selectText(String valor, WebElement e) {
 		Select passCnt = new Select(e);
 		passCnt.selectByVisibleText(valor);
-
+	}
+	
+	public void selectValue(String valor, WebElement e) {
+		Select passCnt = new Select(e);
+		passCnt.selectByValue(valor);
 	}
 	
 }

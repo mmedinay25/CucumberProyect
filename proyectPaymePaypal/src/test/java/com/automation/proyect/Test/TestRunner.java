@@ -6,9 +6,11 @@ import cucumber.api.junit.Cucumber;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-		features = "src/test/resources/features",
-		glue = {"pe.com.automation.exam.Steps"},
-		tags = {"@RecargaFeature"},
+		features = {"src/test/resources/features/asociationPayme.feature",
+					"src/test/resources/features/loginPayme.feature",
+					"src/test/resources/features/recargaPaypal.feature"},
+		glue = {"com.automation.proyect.Test", "com.automation.proyect.Steps"},
+		tags = {"@AsociacionFeature, @LoginFeature, @RecargaFeature"},
 		plugin = {
 				"pretty",
 				"json:target/cucumber-reports/Cucumber.json",
